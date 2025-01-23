@@ -1,0 +1,30 @@
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import "bulma/css/bulma.min.css";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+function App() {
+  return (
+    <div
+      className="has-background-black-ter has-text-light"
+      style={{ minHeight: "100vh" }}
+    >
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
+    </div>
+  );
+}
+
+export default App;
