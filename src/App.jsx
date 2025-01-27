@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import DeviceSync from "./pages/DeviceSync";
 import "bulma/css/bulma.min.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -17,6 +18,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/sync"
+            element={
+              <ProtectedRoute>
+                <DeviceSync />
               </ProtectedRoute>
             }
           />

@@ -1,26 +1,10 @@
 import React from "react";
 import { FaSync, FaPlus, FaWifi, FaFingerprint } from "react-icons/fa";
-import Swal from "sweetalert2";
+
+import { useNavigate } from "react-router-dom";
 
 const MenuGrid = () => {
-  const handleSync = (action) => {
-    Swal.fire({
-      title: "Are you sure you want to sync data?",
-      text: " This can't be undone!",
-      showCancelButton: true,
-      confirmButtonText: "Confirm",
-      denyButtonText: `Don't save`,
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire(
-          "Saved!",
-          "Device data has been successfully synced to the database.",
-          "success"
-        );
-      }
-    });
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="container mt-2 p-2">
@@ -29,7 +13,7 @@ const MenuGrid = () => {
           <div
             className="card notification has-background-dark has-text-white is-clickable has-text-centered"
             style={{ height: "150px" }}
-            onClick={() => handleSync("Synchronize Data")}
+            onClick={() => navigate("/sync")}
           >
             <div className="card-content">
               <span className="icon is-large mb-3">
