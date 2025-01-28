@@ -90,8 +90,9 @@ const DeviceSync = () => {
                   <h2 className="title is-5 has-text-white">
                     {card.device_name}
                   </h2>
+
                   <p className="content has-text-grey-lighter">
-                    {card.ip_address}
+                    {card.location} - {card.ip_address}
                   </p>
                   <button
                     onClick={() =>

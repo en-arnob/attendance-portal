@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import DeviceSync from "./pages/DeviceSync";
 import "bulma/css/bulma.min.css";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AddDevice from "./pages/AddDevice";
+import ManageDevices from "./pages/ManageDevices";
 
 function App() {
   return (
@@ -26,6 +28,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <DeviceSync />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-device"
+            element={
+              <ProtectedRoute>
+                <AddDevice />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/manage-devices"
+            element={
+              <ProtectedRoute>
+                <ManageDevices /> 
               </ProtectedRoute>
             }
           />
