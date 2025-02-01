@@ -10,20 +10,22 @@ const api = {
 
 const DeviceSync = () => {
   const [devices, setDevices] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Loading state for device list
-  const [error, setError] = useState(null); // Optional: handle errors
+  const [isLoading, setIsLoading] = useState(false);
 
   const getDeviceList = async () => {
-    setIsLoading(true); // Start loading
+    setIsLoading(true);
     try {
       const response = await axios.get(`${api.base}/v1/device-list`);
       setDevices(response.data);
-      setError(null); // Reset any previous error
     } catch (error) {
       console.error(error);
-      setError("Failed to fetch device list. Please try again later.");
+      Swal.fire(
+        "Error!",
+        "Failed to fetch device list. Try again later.",
+        "error",
+      );
     } finally {
-      setIsLoading(false); // End loading
+      setIsLoading(false);
     }
   };
 
@@ -32,35 +34,41 @@ const DeviceSync = () => {
   }, []);
 
   const handleSync = async (deviceName, ipAddress) => {
-    console.log(ipAddress);
     Swal.fire({
-      title: "Are you sure you want to sync?",
+      title: "Are you sure?",
       text: `${deviceName} (IP: ${ipAddress})`,
       showCancelButton: true,
       confirmButtonText: "Confirm",
     }).then(async (result) => {
       if (result.isConfirmed) {
+        Swal.fire({
+          title: "Syncing...",
+          text: "Please wait while data is being synced.",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading(); // Show loading inside the modal
+          },
+        });
+
         try {
           const response = await axios.post(
-            `${api.base}/v1/attendance-sync/`, // The endpoint URL
-            {}, // Empty body if not needed
-            { params: { ip_address: ipAddress } } // Query parameters
+            `${api.base}/v1/attendance-sync/`,
+            {},
+            { params: { ip_address: ipAddress } },
           );
-          console.log(response);
-          if (response.status == 200) {
+
+          if (response.status === 200) {
             Swal.fire(
-              "Saved!",
-              `${response.data.new_records_added} new records added to database, Devcice Records: ${response.data.total_device_records}, Total Database Records: ${response.data.existing_records}`,
-              "success"
+              "Sync Complete!",
+              `${response.data.new_records_added} new records added.\n
+              Device Records: ${response.data.total_device_records}\n
+              Total Database Records: ${response.data.existing_records}`,
+              "success",
             );
           }
         } catch (error) {
           console.error(error);
-          Swal.fire(
-            "Error!",
-            "There was an issue syncing the device data. Please try again later.",
-            "error"
-          );
+          Swal.fire("Error!", "Failed to sync data. Try again later.", "error");
         }
       }
     });
@@ -69,15 +77,11 @@ const DeviceSync = () => {
   return (
     <Layout>
       <div className="container mt-4">
-        {isLoading ? ( // Show loading spinner while fetching
+        {isLoading ? (
           <div className="has-text-centered">
             <button className="button is-loading is-large is-info">
               Loading devices...
             </button>
-          </div>
-        ) : error ? ( // Show error message if fetching fails
-          <div className="notification is-danger is-light has-text-centered">
-            {error}
           </div>
         ) : (
           <div className="columns is-multiline">
@@ -90,7 +94,6 @@ const DeviceSync = () => {
                   <h2 className="title is-5 has-text-white">
                     {card.device_name}
                   </h2>
-
                   <p className="content has-text-grey-lighter">
                     {card.location} - {card.ip_address}
                   </p>

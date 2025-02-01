@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import DeviceSync from "./pages/DeviceSync";
@@ -43,7 +43,7 @@ function App() {
             path="/manage-devices"
             element={
               <ProtectedRoute>
-                <ManageDevices /> 
+                <ManageDevices />
               </ProtectedRoute>
             }
           />
