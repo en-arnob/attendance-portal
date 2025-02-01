@@ -6,6 +6,7 @@ import "bulma/css/bulma.min.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddDevice from "./pages/AddDevice";
 import ManageDevices from "./pages/ManageDevices";
+import ModifyDevice from "./pages/ModifyDevice";
 
 function App() {
   return (
@@ -44,6 +45,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <ManageDevices />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/modify-device/:id"
+            element={
+              <ProtectedRoute>
+                <ModifyDevice />
               </ProtectedRoute>
             }
           />

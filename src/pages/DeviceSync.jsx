@@ -46,7 +46,7 @@ const DeviceSync = () => {
           text: "Please wait while data is being synced.",
           allowOutsideClick: false,
           didOpen: () => {
-            Swal.showLoading(); // Show loading inside the modal
+            Swal.showLoading();
           },
         });
 
