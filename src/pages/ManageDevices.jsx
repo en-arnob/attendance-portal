@@ -123,12 +123,12 @@ const ManageDevices = () => {
 
         try {
           const response = await axios.post(
-            `${api.base}/v1/clear-device-data/`,
+            `${api.base}/v1/clear_device_attendance/`,
             {},
-            { params: { ip_address: ipAddress } },
+            { params: { ip_address: ipAddress } }
           );
 
-          if (response.status === 204) {
+          if (response.status === 200) {
             Swal.fire("Device data wiped!", ``, "success");
             getDeviceList();
           }
@@ -171,6 +171,8 @@ const ManageDevices = () => {
           if (response.status === 200) {
             Swal.fire("Device turned off!", ``, "success");
             getDeviceList();
+          console.log("yoor password is ok");
+            
           }
         } catch (error) {
           console.error(error);

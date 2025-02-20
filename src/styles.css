@@ -42,3 +42,41 @@ input:checked+.slider {
 input:checked+.slider:before {
     transform: translateX(20px);
 }
+
+.svg-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    /* Center the image */
+    background: #1F2229;
+    /* Optional: Set background color */
+}
+
+.svg-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.table.is-hoverable tbody tr:hover {
+    background-color: #42626e63 !important;
+    /* Force hover color */
+    color: white !important;
+    
+}
+
+.loader-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Full-screen height */
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Optional dark overlay */
+    z-index: 9999;
+}

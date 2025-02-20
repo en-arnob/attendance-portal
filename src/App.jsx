@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AddDevice from "./pages/AddDevice";
 import ManageDevices from "./pages/ManageDevices";
 import ModifyDevice from "./pages/ModifyDevice";
+import ViewAttendance from "./pages/ViewAttendance";
 
 function App() {
   return (
@@ -21,6 +22,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/view-attendance"
+            element={
+              <ProtectedRoute>
+                <ViewAttendance />
               </ProtectedRoute>
             }
           />

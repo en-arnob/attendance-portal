@@ -1,4 +1,3 @@
-import React from "react";
 import { FaSync, FaPlus, FaWifi, FaFingerprint } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
@@ -57,7 +56,7 @@ const MenuGrid = () => {
           <div
             className="card notification has-background-dark has-text-white is-clickable has-text-centered"
             style={{ height: "150px" }}
-            // onClick={() => handleCardClick("Synchronize Device")}
+            onClick={() => navigate("/view-attendance")}
           >
             <div className="card-content">
               <span className="icon is-large mb-3">
