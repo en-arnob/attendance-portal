@@ -1,11 +1,13 @@
-import Layout from '../components/Layout'
-import MenuGrid from '../components/MenuGrid';
-import ImgBg from '../assets/image.svg'
+import Layout from "../components/Layout";
+import MenuGrid from "../components/MenuGrid";
+import AttendanceStatus from "../components/AttendanceStatus";
+import ImgBg from "../assets/image.svg";
 
 const Home = () => {
   return (
     <Layout>
       <div>
+        <AttendanceStatus />
         <MenuGrid />
       </div>
       {/* SVG at the bottom */}
@@ -14,6 +16,6 @@ const Home = () => {
       </div>
     </Layout>
   );
-}
+};
 
-export default Home
+export default Home;

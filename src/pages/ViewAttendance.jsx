@@ -24,21 +24,22 @@ const ViewAttendance = () => {
       preserveAspectRatio: "xMidYMid slice", // You can adjust the aspect ratio here
     },
   };
-//   const loadingAnimation = {
-//     loop: true, // Animation will loop
-//     autoplay: true, // Animation will autoplay
-//     animationData: loadingLottie, // The animation JSON file
-//     rendererSettings: {
-//       preserveAspectRatio: "xMidYMid slice", // You can adjust the aspect ratio here
-//     },
-//   };
+  //   const loadingAnimation = {
+  //     loop: true, // Animation will loop
+  //     autoplay: true, // Animation will autoplay
+  //     animationData: loadingLottie, // The animation JSON file
+  //     rendererSettings: {
+  //       preserveAspectRatio: "xMidYMid slice", // You can adjust the aspect ratio here
+  //     },
+  //   };
 
   const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [endDate, setEndDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const [selectedDept, setSelectedDept] = useState("");
 
   const [attData, setAttData] = useState([]);
-  const [dCount, setDCount] = useState(0);
+  const [pageInfo, setPageInfo] = useState(0);
   const [dNextUrl, setDNextUrl] = useState(null);
   const [dPrevUrl, setDPrevUrl] = useState(null);
 
@@ -55,13 +56,13 @@ const ViewAttendance = () => {
     try {
       console.log(startDate, endDate);
       const response = await axios.get(
-        `${api.base}/v1/get-attendance?start_date=${startDate}&end_date=${endDate}`
+        `${api.base}/v1/get-attendance?start_date=${startDate}&end_date=${endDate}&xdept=${selectedDept}`,
       );
       const data = response.data;
       console.log(data.results);
 
       setAttData(data.results);
-      setDCount(data.count);
+      setPageInfo(data.pagination_info);
       setDNextUrl(data.next);
       setDPrevUrl(data.previous);
       setIsLoading(false);
@@ -74,9 +75,9 @@ const ViewAttendance = () => {
       console.log(startDate, endDate);
       const response = await axios.get(url);
       const data = response.data;
-    //   console.log(data.results);
+      //   console.log(data.results);
       setAttData(data.results);
-      setDCount(data.count);
+      setPageInfo(data.pagination_info);
       setDNextUrl(data.next);
       setDPrevUrl(data.previous);
       setIsLoading(false);
@@ -135,6 +136,21 @@ const ViewAttendance = () => {
               />
             </div>
           </div>
+          <div className="control">
+            <label className="label has-text-white">Department</label>
+            <div className="input-container">
+              <div className="select">
+                <select
+                  value={selectedDept}
+                  onChange={(e) => setSelectedDept(e.target.value)}
+                >
+                  <option value="">All Dept.</option>
+                  <option value="IT">IT</option>
+                  <option value="ACCOUNTS">ACCOUNTS</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
           {/* Search Button */}
           <div className="control mt-2">
@@ -162,6 +178,7 @@ const ViewAttendance = () => {
                 <th className="has-text-white">InTime</th>
                 <th className="has-text-white">OutTime</th>
                 <th className="has-text-white">Remarks</th>
+                <th className="has-text-white">Status</th>{" "}
               </tr>
             </thead>
             <tbody>
@@ -180,6 +197,21 @@ const ViewAttendance = () => {
                     {data.xouttime?.split("T")[1]}
                   </td>
                   <td className="has-text-white">{data.xremark}</td>
+                  <td
+                    className={`has-text-centered ${
+                      data.xstatus === "NP"
+                        ? "has-background-warning-dark has-text-white"
+                        : data.xstatus === "L"
+                          ? "has-background-warning has-text-black"
+                          : data.xstatus === "A"
+                            ? "has-background-danger has-text-white"
+                            : data.xstatus === "P"
+                              ? "has-background-success has-text-white"
+                              : "has-text-white"
+                    }`}
+                  >
+                    {data.xstatus}
+                  </td>{" "}
                 </tr>
               ))}
             </tbody>
@@ -214,9 +246,7 @@ const ViewAttendance = () => {
               </nav>
             </div>
             <div className="column is-narrow">
-              <p className="has-text-centered mt-2">
-                Showing 1-3 of {dCount} records
-              </p>
+              <p className="has-text-centered mt-2">{pageInfo}</p>
             </div>
           </div>
         </div>
