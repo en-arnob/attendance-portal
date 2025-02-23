@@ -8,6 +8,7 @@ import AddDevice from "./pages/AddDevice";
 import ManageDevices from "./pages/ManageDevices";
 import ModifyDevice from "./pages/ModifyDevice";
 import ViewAttendance from "./pages/ViewAttendance";
+import PageIndex from "./pages/pageindex";
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/ut5ob" element={<PageIndex />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Router>

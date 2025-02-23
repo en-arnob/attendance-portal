@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import "bulma/css/bulma.min.css";
 
@@ -36,7 +36,9 @@ const ViewAttendance = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const [endDate, setEndDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const [deptList, setDeptList] = useState([]);
   const [selectedDept, setSelectedDept] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
 
   const [attData, setAttData] = useState([]);
   const [pageInfo, setPageInfo] = useState(0);
@@ -54,12 +56,12 @@ const ViewAttendance = () => {
 
   const getAttData = async () => {
     try {
-      console.log(startDate, endDate);
+      // console.log(startDate, endDate);
       const response = await axios.get(
-        `${api.base}/v1/get-attendance?start_date=${startDate}&end_date=${endDate}&xdept=${selectedDept}`,
+        `${api.base}/v1/get-attendance?start_date=${startDate}&end_date=${endDate}&xdept=${selectedDept}&xlocation=${selectedLocation}`,
       );
       const data = response.data;
-      console.log(data.results);
+      // console.log(data.results);
 
       setAttData(data.results);
       setPageInfo(data.pagination_info);
@@ -70,6 +72,22 @@ const ViewAttendance = () => {
       console.log(error);
     }
   };
+  const getDeptList = async () => {
+    try {
+      const response = await axios.get(
+        `${api.base}/v1/setup-data/all?xtype=Department`
+      );
+      setDeptList(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+    getDeptList();
+  }, [])
+  
   const getPaginationData = async (url) => {
     try {
       console.log(startDate, endDate);
@@ -144,9 +162,28 @@ const ViewAttendance = () => {
                   value={selectedDept}
                   onChange={(e) => setSelectedDept(e.target.value)}
                 >
-                  <option value="">All Dept.</option>
-                  <option value="IT">IT</option>
-                  <option value="ACCOUNTS">ACCOUNTS</option>
+                  <option value="">All dept.</option>
+                  {deptList.map((dept) => (
+                    <option key={dept.xcode} value={dept.xcode}>
+                      {dept.xcode}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="control">
+            <label className="label has-text-white">Location</label>
+            <div className="input-container">
+              <div className="select">
+                <select
+                  value={selectedLocation}
+                  onChange={(e) => setSelectedLocation(e.target.value)}
+                >
+                  <option value="">No filter</option>
+                  <option value="Head Office">Head Office</option>
+                  <option value="Factory">Factory</option>
+                  
                 </select>
               </div>
             </div>
@@ -202,12 +239,12 @@ const ViewAttendance = () => {
                       data.xstatus === "NP"
                         ? "has-background-warning-dark has-text-white"
                         : data.xstatus === "L"
-                          ? "has-background-warning has-text-black"
-                          : data.xstatus === "A"
-                            ? "has-background-danger has-text-white"
-                            : data.xstatus === "P"
-                              ? "has-background-success has-text-white"
-                              : "has-text-white"
+                        ? "has-background-warning has-text-black"
+                        : data.xstatus === "A"
+                        ? "has-background-danger has-text-white"
+                        : data.xstatus === "P"
+                        ? "has-background-success has-text-white"
+                        : "has-text-white"
                     }`}
                   >
                     {data.xstatus}
