@@ -18,7 +18,7 @@ const MenuGrid = () => {
               <span className="icon is-large mb-3">
                 <FaSync size={32} className="has-text-info" />
               </span>
-              <p className="is-size-5">Synchronize Data</p>
+              <p className="is-size-5">Sync. Data</p>
             </div>
           </div>
         </div>
