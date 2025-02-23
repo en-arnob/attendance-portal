@@ -1,10 +1,11 @@
 import { useData } from "../context/DataContext";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineSchedule } from "react-icons/ai"; // Importing the icon
 
 const Nav = () => {
   const navigate = useNavigate();
-
   const { methodSignout } = useData();
+
   return (
     <nav
       className="navbar is-info"
@@ -15,8 +16,14 @@ const Nav = () => {
         <p
           onClick={() => navigate("/")}
           className="navbar-item has-text-white has-text-weight-semibold is-size-5"
-          style={{ cursor: "pointer" }}
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
         >
+          <AiOutlineSchedule size={24}/> {/* Icon before title */}
           <span className="is-large">Attendance Portal</span>
         </p>
 
@@ -34,20 +41,6 @@ const Nav = () => {
         </a>
       </div>
       <div id="navbarBasicExample" className="navbar-menu">
-        {/* <div className="navbar-start">
-          <a className="navbar-item">Home</a>
-          <a className="navbar-item">Documentation</a>
-          <div className="navbar-item has-dropdown is-hoverable">
-            <a className="navbar-link">More</a>
-            <div className="navbar-dropdown">
-              <a className="navbar-item">About</a>
-              <a className="navbar-item is-selected">Jobs</a>
-              <a className="navbar-item">Contact</a>
-              <hr className="navbar-divider" />
-              <a className="navbar-item">Report an issue</a>
-            </div>
-          </div>
-        </div> */}
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
