@@ -50,7 +50,7 @@ const AttendanceStatus = () => {
         </div>
         <div className="column is-one-quarter">
           <div
-            className="box has-background-warning has-text-white has-text-centered"
+            className="box has-background-link has-text-white has-text-centered"
             style={{ height: "80px" }}
           >
             <FaClock size={24} />
@@ -62,7 +62,7 @@ const AttendanceStatus = () => {
         </div>
         <div className="column is-one-quarter">
           <div
-            className="box has-background-link has-text-white has-text-centered"
+            className="box has-background-warning has-text-white has-text-centered"
             style={{ height: "80px" }}
           >
             <FaExclamationCircle size={24} />

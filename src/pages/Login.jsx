@@ -3,6 +3,7 @@ import { FaRegUser } from "react-icons/fa6";
 import { TbLockPassword } from "react-icons/tb";
 import { useData } from "../context/DataContext";
 import { useNavigate } from "react-router-dom";
+import BIMG from "../assets/business.png";
 
 const Login = () => {
   const navigate = useNavigate(); 
@@ -39,13 +40,19 @@ const Login = () => {
       <div className="columns is-centered">
         <div className="column is-half">
           <section className="hero is-info">
-            <div className="hero-body">
-              <p className="title">Attendance Portal</p>
-              <p className="subtitle">v1.0</p>
+            <div className="hero-body is-flex is-align-items-center is-justify-content-space-between">
+              <div>
+                <p className="title">Attendance Portal</p>
+                <p className="subtitle">v1.5</p>
+              </div>
+              <figure className="image is-96x96">
+                <img src={BIMG} alt="Logo" />
+              </figure>
             </div>
           </section>
         </div>
       </div>
+
       <div className="columns is-centered">
         <div className="column is-half">
           <div className="p-4">

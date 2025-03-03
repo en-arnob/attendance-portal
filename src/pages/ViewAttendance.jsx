@@ -173,7 +173,7 @@ const ViewAttendance = () => {
             </div>
           </div>
           <div className="control">
-            <label className="label has-text-white">Location</label>
+            <label className="label has-text-white">Workplace</label>
             <div className="input-container">
               <div className="select">
                 <select
@@ -183,7 +183,6 @@ const ViewAttendance = () => {
                   <option value="">No filter</option>
                   <option value="Head Office">Head Office</option>
                   <option value="Factory">Factory</option>
-                  
                 </select>
               </div>
             </div>
@@ -228,10 +227,10 @@ const ViewAttendance = () => {
                   <td className="has-text-white">{data.xshift}</td>
                   <td className="has-text-white">{data.xdate}</td>
                   <td className="has-text-white">
-                    {data.xintime?.split("T")[1]}
+                    {data.xintime?.split(" ")[1]}
                   </td>
                   <td className="has-text-white">
-                    {data.xouttime?.split("T")[1]}
+                    {data.xouttime?.split(" ")[1]}
                   </td>
                   <td className="has-text-white">{data.xremark}</td>
                   <td
